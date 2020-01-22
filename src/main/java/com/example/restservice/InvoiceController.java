@@ -2,7 +2,6 @@ package com.example.restservice;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 
 
 import com.launchdarkly.client.LDClient;

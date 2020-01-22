@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: invoice
+  name: invoice
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: invoice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: invoice
+    spec:
+      containers:
+      - image: karlomendozaarmory/digital-invoice:3
+        name: invoice
+        ports:
+        - containerPort: 9090
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoice
+  namespace: demo
+  labels:
+    service: invoice
+spec:
+  ports:
+  - port: 9090
+    protocol: TCP
+  selector:
+    app: invoice
