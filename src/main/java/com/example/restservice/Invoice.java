@@ -1,32 +1,23 @@
 package com.example.restservice;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Invoice {
 
     private String invoiceId;
-    private String invoice;
+    private String issuingCompany;
+    private String receiverName;
+    private BigDecimal amount;
+    private BigDecimal taxAmount;
+    private String purpose;
 
-    public Invoice(String invoiceId, String invoice) {
-        this.invoiceId = invoiceId;
-        this.invoice = invoice;
-    }
-
-    public String getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(String invoice) {
-        this.invoice = invoice;
-    }
-
-    public String getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(String invoiceId) {
-        this.invoiceId = invoiceId;
-    }
 }
