@@ -2,6 +2,9 @@ package com.example.restservice;
 
 import com.launchdarkly.client.LDClientInterface;
 import com.launchdarkly.client.LDUser;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,17 @@ public class InvoiceController {
 		this.ldClient = ldClient;
 	}
 
+	@ApiOperation(
+			value = "Gets an invoice prepared with indicated invoiceId.",
+			response = Invoice.class,
+			produces = "application/json"
+	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Ok"),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error")
+	})
 	@GetMapping("/invoice")
 	public Invoice tag(@RequestParam(value = "invoiceId") String invoiceId) {
 
@@ -30,8 +44,7 @@ public class InvoiceController {
 				.customString("groups", Arrays.asList("beta_testers"))
 				.build();
 
-		boolean isDummyInvoicingEnabled = ldClient
-				.boolVariation(
+		boolean isDummyInvoicingEnabled = ldClient.boolVariation(
 						"dummy-invoice-enabled",
 						user,
 						true
