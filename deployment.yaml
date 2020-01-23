@@ -4,7 +4,7 @@ metadata:
   labels:
     app: invoice
   name: invoice
-  namespace: demo
+  namespace: default
 spec:
   selector:
     matchLabels:
@@ -16,7 +16,7 @@ spec:
         app: invoice
     spec:
       containers:
-      - image: karlomendozaarmory/digital-invoice:3
+      - image: karlomendozaarmory/digital-invoice:5
         name: invoice
         ports:
         - containerPort: 9090
@@ -26,7 +26,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: invoice
-  namespace: demo
+  namespace: default
   labels:
     service: invoice
 spec:

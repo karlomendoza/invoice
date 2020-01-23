@@ -1,19 +1,17 @@
 package com.example.restservice;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Arrays;
-
-
-import com.launchdarkly.client.LDClient;
 import com.launchdarkly.client.LDClientInterface;
 import com.launchdarkly.client.LDUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 
+@Slf4j
 @RestController
 public class InvoiceController {
 
@@ -32,10 +30,15 @@ public class InvoiceController {
 				.customString("groups", Arrays.asList("beta_testers"))
 				.build();
 
-		boolean isDummyInvoicingEnabled = ldClient.boolVariation("test-1", user, false);
+		boolean isDummyInvoicingEnabled = ldClient
+				.boolVariation(
+						"dummy-invoice-enabled",
+						user,
+						true
+				);
 
 		//ldClient.close();
-
+		log.info(String.format("dummy-invoice-enabled flag contains: %b", isDummyInvoicingEnabled));
 		if (isDummyInvoicingEnabled) {
 			// return a dummy invoice
 			return Invoice
