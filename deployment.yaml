@@ -16,7 +16,7 @@ spec:
         app: invoice
     spec:
       containers:
-      - image: karlomendozaarmory/digital-invoice:5
+      - image: karlomendozaarmory/digital-invoice:6
         name: invoice
         ports:
         - containerPort: 9090
